@@ -1,0 +1,61 @@
+Numbered Standard Access List Configuration
+
+using routers as pc's with (no ip routing) command
+
+!!PC 1
+
+en
+conf t
+host PC1
+no ip routing
+in g0/0
+ip add 192.168.10.10 255.255.255.0
+no sh
+exit
+ip default-gateway 192.168.10.1
+
+!!PC 2
+
+en
+conf t
+host PC2
+no ip routing
+in g0/0
+ip add 192.168.20.20 255.255.255.0
+no sh
+exit
+ip default-gateway 192.168.20.1
+
+!!PC 3
+
+en
+conf t
+host PC3
+no ip routing
+in g0/0
+ip add 192.168.30.30 255.255.255.0
+no sh
+exit
+ip default-gateway 192.168.30.1
+
+!!R1
+
+en
+conf t
+host R1
+no ip routing
+in g0/0
+ip add 192.168.10.1 255.255.255.0
+no sh
+in g0/1
+ip add 192.168.20.1 255.255.255.0
+no sh
+in g0/2
+ip add 192.168.30.1 255.255.255.0
+no sh
+exit
+access-list 1 deny host 192.168.10.10
+in g0/2
+ip access-group 1 out
+exit
+access-list 1 permit any
