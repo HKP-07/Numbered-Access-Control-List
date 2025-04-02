@@ -1,0 +1,21 @@
+Named Standard Access Control List
+
+R1(config)#ip access
+R1(config)#ip access-list standard Block_PC1_PC3
+R1(config-std-nacl)#deny host 192.168.10.10
+R1(config-std-nacl)#permit any
+R1(config-std-nacl)#
+R1(config-std-nacl)#exit
+R1(config)#in g0/2
+R1(config-if)#ip access
+R1(config-if)#ip access-group standard Block_PC1_PC3 out
+                                       ^
+% Invalid input detected at '^' marker.
+	
+R1(config-if)#ip access-group Block_PC1_PC3 out
+R1(config-if)#exit
+R1(config)#do sh acc
+R1(config)#do sh acc
+Standard IP access list Block_PC1_PC3
+    10 deny host 192.168.10.10 (5 match(es))
+    20 permit any (5 match(es))
