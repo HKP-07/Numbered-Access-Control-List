@@ -1,0 +1,87 @@
+Numbered Extended access control list
+
+R1>en
+R1#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R1(config)#access
+R1(config)#access-list ?
+  <1-99>     IP standard access list
+  <100-199>  IP extended access list
+R1(config)#access-list 100 ?
+  deny    Specify packets to reject
+  permit  Specify packets to forward
+  remark  Access list entry comment
+R1(config)#access-list 100 deny ?
+  ahp    Authentication Header Protocol
+  eigrp  Cisco's EIGRP routing protocol
+  esp    Encapsulation Security Payload
+  gre    Cisco's GRE tunneling
+  icmp   Internet Control Message Protocol
+  ip     Any Internet Protocol
+  ospf   OSPF routing protocol
+  tcp    Transmission Control Protocol
+  udp    User Datagram Protocol
+R1(config)#access-list 100 deny tcp ?
+  A.B.C.D  Source address
+  any      Any source host
+  host     A single source host
+R1(config)#access-list 100 deny tcp host 192.168.10.10 ?
+  A.B.C.D  Destination address
+  any      Any destination host
+  eq       Match only packets on a given port number
+  gt       Match only packets with a greater port number
+  host     A single destination host
+  lt       Match only packets with a lower port number
+  neq      Match only packets not on a given port number
+  range    Match only packets in the range of port numbers
+R1(config)#access-list 100 deny tcp host 192.168.10.10 host 192.168.30.30
+R1(config)#
+R1(config)#access-list 100 deny tcp host 192.168.10.10 host 192.168.30.30 ?
+  dscp         Match packets with given dscp value
+  eq           Match only packets on a given port number
+  established  established
+  gt           Match only packets with a greater port number
+  lt           Match only packets with a lower port number
+  neq          Match only packets not on a given port number
+  precedence   Match packets with given precedence value
+  range        Match only packets in the range of port numbers
+  <cr>
+R1(config)#access-list 100 deny tcp host 192.168.10.10 host 192.168.30.30 eq ?
+  <0-65535>  Port number
+  ftp        File Transfer Protocol (21)
+  pop3       Post Office Protocol v3 (110)
+  smtp       Simple Mail Transport Protocol (25)
+  telnet     Telnet (23)
+  www        World Wide Web (HTTP, 80)
+R1(config)#access-list 100 deny tcp host 192.168.10.10 host 192.168.30.30 eq telnet ?
+  dscp         Match packets with given dscp value
+  established  established
+  precedence   Match packets with given precedence value
+  <cr>
+R1(config)#access-list 100 deny tcp host 192.168.10.10 host 192.168.30.30 eq telnet 
+R1(config)#acc
+R1(config)#access-list 100 permit ?
+  ahp    Authentication Header Protocol
+  eigrp  Cisco's EIGRP routing protocol
+  esp    Encapsulation Security Payload
+  gre    Cisco's GRE tunneling
+  icmp   Internet Control Message Protocol
+  ip     Any Internet Protocol
+  ospf   OSPF routing protocol
+  tcp    Transmission Control Protocol
+  udp    User Datagram Protocol
+R1(config)#access-list 100 permit ip ?
+  A.B.C.D  Source address
+  any      Any source host
+  host     A single source host
+R1(config)#access-list 100 permit ip any any ?
+  dscp        Match packets with given dscp value
+  precedence  Match packets with given precedence value
+  <cr>
+R1(config)#access-list 100 permit ip any any 
+R1(config)#
+R1(config)#
+R1(config)#in g0/0
+R1(config-if)#ip acc
+R1(config-if)#ip access-group 100 in
+R1(config-if)#

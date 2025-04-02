@@ -1,0 +1,25 @@
+Named Extended Access Control List
+
+R1(config)#ip acc
+R1(config)#ip access-list extended Block_PING_PC1_PC3
+R1(config-ext-nacl)#deny icmp host 192.168.10.10 host 192.168.30.30 ?
+  <0-256>               type-num
+  echo                  Echo (ping)
+  echo-reply            Echo reply
+  host-unreachable      Host unreachable
+  net-unreachable       Net unreachable
+  port-unreachable      Port unreachable
+  protocol-unreachable  Protocol unreachable
+  ttl-exceeded          TTL exceeded
+  unreachable           All unreachables
+  <cr>
+R1(config-ext-nacl)#deny icmp host 192.168.10.10 host 192.168.30.30 echo ?
+  <cr>
+R1(config-ext-nacl)#deny icmp host 192.168.10.10 host 192.168.30.30 echo 
+R1(config-ext-nacl)#permit ip any any
+R1(config-ext-nacl)#exit
+R1(config)#
+R1(config)#in g0/0
+R1(config-if)#ip acc
+R1(config-if)#ip access-group Block_PING_PC1_PC3 in
+R1(config-if)#
